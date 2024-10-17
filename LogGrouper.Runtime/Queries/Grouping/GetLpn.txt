@@ -1,0 +1,15 @@
+﻿select top 1 pd.id as Lpn
+
+from {Scheme}.orders o
+
+inner join {Scheme}.pickdetail pd on pd.orderkey = o.orderkey  and ID not like 'ccp%' and ID not like 'ccr%'
+
+where o.ORDERGROUP = '{Drop_Id}'
+
+and pd.ID <> '0'
+
+and O.HOSTPROCESSREQUIRED = '0'
+
+and pd.STATUS <> '9'
+
+--and CAST (o.ADDDATE as date) > (cast (GETDATE () -30 as date))

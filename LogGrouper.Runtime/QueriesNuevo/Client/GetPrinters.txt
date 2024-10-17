@@ -1,0 +1,3 @@
+﻿select distinct UDF1 as PrinterName, LISTNAME as PrinterType, * from 
+{Scheme}.codelkup where
+listname in('PRINTLBL', 'PRINTPACK')

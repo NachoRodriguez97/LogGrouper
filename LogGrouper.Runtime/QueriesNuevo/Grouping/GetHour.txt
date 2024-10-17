@@ -1,0 +1,5 @@
+﻿select d.EXT_UDF_STR1 as [GROUP], DRUDF2 TRANSPORT, c.UDF1 as [HOUR], c.DESCRIPTION 
+from {Scheme}.DROPID d
+join {Scheme}.CODELKUP c on d.DRUDF2 = c.DESCRIPTION
+where DROPID =  '{Drop_Id}'
+and LISTNAME like 'TRANSPFAR'

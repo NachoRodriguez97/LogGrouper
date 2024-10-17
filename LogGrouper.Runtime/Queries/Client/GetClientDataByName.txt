@@ -1,0 +1,12 @@
+﻿SELECT Id
+      ,[Named]
+      ,[ConnectionString]
+      ,[Warehouse]
+      ,[StorerName]
+      ,[LoginUrl]
+      ,[LoginUsername]
+      ,[LoginPassword]
+      ,[LabelPrefix]
+      ,[GetInfoQuery]
+  FROM {Scheme}.[Client]
+  WHERE [Named] = '{Client}'

@@ -1,0 +1,55 @@
+﻿DECLARE @LOG NVARCHAR(50)
+DECLARE @NEW_DROPID NVARCHAR(50)
+DECLARE @TRANSPORT_DESCR NVARCHAR(50)
+DECLARE @GROUP NVARCHAR(50)
+
+--Numero de grupo
+SELECT @GROUP = cl.EXT_UDF_STR7
+from {Scheme}.ORDERS o 
+inner join {Scheme}.CODELKUP cl on cl.CODE = o.EXT_UDF_STR3 and LISTNAME = 'CONFIGFRE1'
+where o.orderkey =  '{Order_Id}'
+
+SELECT TOP 1 @LOG = DROPID FROM {Scheme}.DROPID WHERE STATUS = 'AP' AND DROPIDTYPE = '11' AND DRUDF3 = '{Transport}' AND EXT_UDF_STR1 = @GROUP
+SELECT @TRANSPORT_DESCR = SUSR3 FROM {Scheme}.ORDERS WHERE ORDERKEY = '{Order_Id}'
+
+IF(@LOG IS NULL) --Si no existe pallet en curso lo creo
+BEGIN
+	-- Ejecuta directamente el procedimiento almacenado y almacena el resultado en una tabla temporal
+	CREATE TABLE #ResultTablePUP (DROPID_NEW NVARCHAR(50))
+	INSERT INTO #ResultTablePUP exec [dbo].[Obtiene_ID_Agrupado] 'AGRUPADO_PALLET', '{Scheme}'
+	-- Obtiene el resultado deseado de la tabla temporal
+	SELECT TOP 1 @NEW_DROPID = DROPID_NEW FROM #ResultTablePUP
+	-- Elimina la tabla temporal
+	DROP TABLE #ResultTablePUP
+
+END
+ELSE
+BEGIN
+	DECLARE @ADDWHO NVARCHAR(50)
+	SELECT TOP 1 @ADDWHO = ADDWHO FROM {Scheme}.DROPID WHERE DROPID = @LOG
+	IF(@ADDWHO = '{User}')
+	BEGIN
+		SELECT @LOG AS DropId
+		RETURN
+	END
+	ELSE
+	BEGIN
+		SELECT 'ERROR: Ya existe un pallet en curso para este grupo y transporte abierto por ' + @ADDWHO + '.' AS DropId
+		RETURN
+	END
+END
+
+IF(@NEW_DROPID IS NOT NULL) --Si obtengo el nuevo drop id creo el pallet
+BEGIN
+	INSERT INTO {Scheme}.DROPID (WHSEID,DROPID,DROPLOC,ADDITIONALLOC,DROPIDTYPE,LABELPRINTED,
+	MANIFESTPRINTED,STATUS,ISCLOSED,ADDWHO,DRUDF1,DRUDF2,DRUDF3, EXT_UDF_STR1)
+	VALUES ('{Scheme}',@NEW_DROPID,'PICKTO','','11','0','0','AP','N','{User}','{Storerkey}',@TRANSPORT_DESCR,'{Transport}', @GROUP)
+		
+	--SELECT DROPID AS NewDropId FROM {Scheme}.DROPID WHERE DRUDF3 = @TRANSPORT AND DROPID = @NEW_DROPID AND STATUS = 'AP' AND ISCLOSED = 'N'
+	SELECT DROPID AS NewDropId, DRUDF2 as TransportDescription FROM {Scheme}.DROPID WHERE DRUDF3 = '{Transport}' AND DROPID = @NEW_DROPID AND STATUS = 'AP' AND ISCLOSED = 'N'
+END
+ELSE
+BEGIN
+	SELECT 'ERROR: No se pudo obtener el log de agrupado.' AS DropId
+	RETURN
+END

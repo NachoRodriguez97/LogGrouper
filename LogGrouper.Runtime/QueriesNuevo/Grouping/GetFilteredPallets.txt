@@ -1,0 +1,1 @@
+﻿SELECT * FROM {Scheme}.DROPID WHERE DRUDF3 = '{Transport}' AND DRUDF1 = '{Storerkey}' AND EXT_UDF_STR1 = '{Group}' AND ISCLOSED = 'N'

@@ -1,0 +1,26 @@
+﻿
+INSERT INTO {Scheme}.[AGRUPADO_DETALLE_PALLET]
+           ([DROPID]
+           ,[ORDERKEY]
+           ,[EXTERNORDERKEY]
+           ,[ID_PREPRACION]
+           ,[SUCURSAL]
+           ,[ID_SUCURSAL]
+           ,[REFERENCEDOCUMENT]
+           ,[REMITO]
+           ,[PRECINTO]
+           ,[USUARIO]
+           ,[FECHA])
+     VALUES
+           ('{Drop_Id}'
+           ,'{Order_Id}'
+           ,'{ExternOderkey}'
+           ,'{Id_PickDetail}'
+           ,''
+           ,''--Sucursal
+           ,'{ReferenceDocument}'
+           ,''
+           ,''
+           ,'{User}'
+           ,GETDATE())
+

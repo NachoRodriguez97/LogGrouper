@@ -1,0 +1,1 @@
+﻿SELECT * FROM [dbo].[ClientSetting] WHERE Client = '{Client}' AND IsActive = 1

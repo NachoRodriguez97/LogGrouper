@@ -1,0 +1,1 @@
+﻿select * from {Scheme}.AGRUPADO_DETALLE where DROPID = '{Drop_Id}'

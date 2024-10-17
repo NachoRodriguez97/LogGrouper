@@ -1,0 +1,8 @@
+﻿select d.DROPID, cl2.DESCRIPTION,d.ADDWHO USERNAME, ISNULL(d.EXT_UDF_STR1, ISNULL(DRUDF2, '')) as GRUPO, ISNULL(DRUDF2, '') AS TRANSPORT, (select count(CODIGOET) from {Scheme}.AGRUPADO_DETALLE where DROPID = d.DROPID) AS QTY 
+from {Scheme}.DROPID d
+inner join {Scheme}.CODELKUP cl on cl.LISTNAME = 'DROPIDTYPE' and cl.CODE = d.DROPIDTYPE
+inner join {Scheme}.CODELKUP cl2 on cl2.LISTNAME = 'DROPSTATUS' and cl2.CODE = d.STATUS
+where 0=0
+and d.DROPIDTYPE = '11'
+and d.STATUS = 'AP' and ISCLOSED = 'N'
+--and d.ADDWHO = '{User}'

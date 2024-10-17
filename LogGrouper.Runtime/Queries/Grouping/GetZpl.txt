@@ -1,0 +1,5 @@
+﻿select Zpl 
+from zpl z
+join Client c on c.Id = z.ClienteId
+where LabelName like '{LabelName}'
+and c.Named like '{Storerkey}'

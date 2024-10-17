@@ -1,0 +1,8 @@
+INSERT INTO [dbo].[UserLog]
+           ([Username]
+           ,[Client]
+           ,[IsLogged])
+     VALUES
+           ('{Username}'
+           ,'{Client}'
+           ,1)

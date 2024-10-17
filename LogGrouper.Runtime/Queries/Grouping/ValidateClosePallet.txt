@@ -1,0 +1,5 @@
+﻿SELECT DISTINCT pl.Orderkey AS OrderId, ad.DROPID AS DropId 
+FROM {Scheme}.AGRUPADO_DETALLE ad
+JOIN {Scheme}.ECOM_PackageLog pl ON ad.ORDERKEY = pl.Orderkey
+WHERE ad.DROPID = '{Drop_Id}'
+AND pl.Package NOT IN (SELECT ad.CODIGOET FROM {Scheme}.AGRUPADO_DETALLE ad WHERE ad.DROPID = '{Drop_Id}')

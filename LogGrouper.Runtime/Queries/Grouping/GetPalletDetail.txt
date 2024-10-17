@@ -1,0 +1,20 @@
+﻿SELECT GROUPID,ORDERKEY, DEST, EXTERNORDERKEY,PACKAGE,EXTERNALORDERKEY2,SUCURSAL,FRECUENCIA,getdate() FECHA FROM (
+select 
+ad.DROPID as GROUPID,
+o.ORDERKEY,
+TRANSPORTE as DEST,
+o.EXTERNORDERKEY,
+ad.SUCURSAL as SUCURSAL,
+case when cl.EXT_UDF_STR1 = 1 then 'L' else '' end 'FRECLUNES',
+case when cl.EXT_UDF_STR2 = 1 then 'MA' else '' end 'FREMARTES',
+case when cl.EXT_UDF_STR3 = 1 then 'MI' else '' end 'FRECMIERCOLES',
+case when cl.EXT_UDF_STR4 = 1 then 'J' else '' end 'FRECJUEVES',
+case when cl.EXT_UDF_STR5 = 1 then 'V' else '' end 'FREVIERNES',
+ad.CODIGOET as PACKAGE,
+o.EXTERNALORDERKEY2 EXTERNALORDERKEY2,
+SUSR3 as FRECUENCIA
+from {Scheme}.ORDERS o
+inner join {Scheme}.AGRUPADO_DETALLE ad on ad.ORDERKEY = o.ORDERKEY
+left join {Scheme}.CODELKUP cl on cl.LISTNAME = 'CONFIGFRE1' and cl.code = ad.SUCURSAL
+WHERE DROPID = '{Drop_Id}'
+)x

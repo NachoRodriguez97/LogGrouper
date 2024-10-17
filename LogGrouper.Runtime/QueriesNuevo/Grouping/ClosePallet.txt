@@ -1,0 +1,5 @@
+﻿	update {Scheme}.DROPID set STATUS = 'AGP',ISCLOSED = 'Y' where DROPID = '{Drop_Id}'
+
+	update {Scheme}.orders set ORDERGROUP = '{Drop_Id}' where orderkey in (
+	select distinct orderkey from {Scheme}.AGRUPADO_DETALLE where DROPID = '{Drop_Id}'
+	)

@@ -1,0 +1,1 @@
+update UserLog set IsLogged = {IsLogged} where Username = '{Username}' and Client = '{Client}'

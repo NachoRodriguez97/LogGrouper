@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BarcodeLib" Version="3.0.3" />
+    <PackageReference Include="NReco.PdfGenerator" Version="1.2.1" />
+    <PackageReference Include="SkiaSharp" Version="2.88.7" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.1" />
+    <PackageReference Include="ThoughtWorks.QRCode" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LogGrouper.Models\LogGrouper.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Cryptography">
+      <HintPath>..\..\LoginterCommon\Cryptography\bin\Debug\net5.0\Cryptography.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

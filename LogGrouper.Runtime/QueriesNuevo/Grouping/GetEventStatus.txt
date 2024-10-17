@@ -1,0 +1,1 @@
+﻿select ACTIVE from {Scheme}.codelkup where listname = 'CONFAGRUP' and code = '1'

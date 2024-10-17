@@ -1,0 +1,6 @@
+﻿--delete from {Scheme}.AGRUPADO_DETALLE where NUMEROPEDIDO = '{OrderId}' and BULTOS = '{PackageId}'
+
+DELETE FROM {Scheme}.AGRUPADO_DETALLE 
+WHERE NUMEROPEDIDO = '{OrderId}' AND BULTOS  = '{PackageId}';
+
+SELECT @@ROWCOUNT AS 'ELIMINADO';
